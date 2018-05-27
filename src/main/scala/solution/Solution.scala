@@ -1,16 +1,18 @@
 package solution
 
+import scala.collection.mutable.ListBuffer
+
 object Solution extends Solution {
 
   def main(args: Array[String]): Unit = {
-    val result = solution("54 33 DUP")
+    val result = println(solution("54 33 DUP"))
   }
 }
 
 class Solution {
 
   //Stack where operations generates results
-  var stack = List[Int]()
+  var stack = ListBuffer[Int]()
 
   def solution(s: String): Int = {
 
@@ -26,13 +28,13 @@ class Solution {
     * @param value
     * @return
     */
-  def calculateResult(value: String): List[Int] = {
+  def calculateResult(value: String): ListBuffer[Int] = {
     value match {
       case "POP" => remove()
       case "DUP" => duplicate()
       case "+" => sum()
       case "-" => subs()
-      case _ => stack :+ value.toInt
+      case _ => stack += value.toInt
     }
   }
 
@@ -50,7 +52,7 @@ class Solution {
     */
   def duplicate() = {
     val lastest = stack.last
-    stack :+ lastest
+    stack += lastest
   }
 
   /**
@@ -62,7 +64,7 @@ class Solution {
     remove()
     val laster = stack.last
     remove()
-    stack :+ lastest + laster
+    stack += lastest + laster
   }
 
   /**
@@ -74,6 +76,6 @@ class Solution {
     remove()
     val laster = stack.last
     remove()
-    stack :+ lastest - laster
+    stack += lastest - laster
   }
 }
