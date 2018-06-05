@@ -5,7 +5,7 @@ import scala.collection.mutable.ListBuffer
 object Solution extends Solution {
 
   def main(args: Array[String]): Unit = {
-    val result = println(solution("54 45 54 15 - DUP"))
+    val result = println(solution("1452 34 545 - DUP"))
   }
 }
 
@@ -22,7 +22,7 @@ class Solution {
     } catch {
       case e => return -1
     }
-    return stack.last
+    return getLastElement
   }
 
   /**
@@ -37,8 +37,19 @@ class Solution {
       case "DUP" => duplicate()
       case "+" => sum()
       case "-" => subs()
-      case _ => stack += value.toInt
+      case _ => addToStack(value.toInt)
     }
+  }
+
+  /**
+    * Adds value to stack
+    * @param value
+    */
+  def addToStack(value: Int): ListBuffer[Int] = {
+    if (value > Math.pow(2, 20) - 1) {
+      throw new IllegalStateException("Overflow")
+    }
+    stack += value.toInt
   }
 
   /**
@@ -47,7 +58,7 @@ class Solution {
     */
   def remove() = {
     if (stack.size < 1) {
-      throw new IllegalStateException("Exception thrown")
+      throw new IllegalStateException("Stack empty exception")
     }
     stack = stack.dropRight(1)
     stack
@@ -58,7 +69,7 @@ class Solution {
     * @return
     */
   def duplicate() = {
-    val lastest = stack.last
+    val lastest = getLastElement
     stack += lastest
   }
 
@@ -67,9 +78,9 @@ class Solution {
     * @return
     */
   def sum() = {
-    val lastest = stack.last
+    val lastest = getLastElement
     remove()
-    val laster = stack.last
+    val laster = getLastElement
     remove()
     stack += lastest + laster
   }
@@ -79,10 +90,21 @@ class Solution {
     * @return
     */
   def subs() = {
-    val lastest = stack.last
+    val lastest = getLastElement
     remove()
-    val laster = stack.last
+    val laster = getLastElement
     remove()
     stack += lastest - laster
+  }
+
+  /**
+    * Gets last element of List or throw exception if empty
+    * @return
+    */
+  private def getLastElement = {
+    if (stack.size < 1) {
+      throw new IllegalStateException("Stack empty exception")
+    }
+    stack.last
   }
 }
