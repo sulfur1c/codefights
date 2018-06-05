@@ -18,7 +18,7 @@ class Solution {
     // Splitting string into List to have a list of operations
     val operations = s.split(" ").toList
     try {
-      operations.foreach{calculateResult(_)}
+      operations.map{calculateResult(_)}
     } catch {
       case e => return -1
     }
@@ -61,6 +61,7 @@ class Solution {
   def duplicate() = {
     val lastest = stack.last
     stack += lastest
+    stack
   }
 
   /**
