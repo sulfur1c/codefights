@@ -5,7 +5,7 @@ import scala.collection.mutable.ListBuffer
 object Solution extends Solution {
 
   def main(args: Array[String]): Unit = {
-    val result = println(solution("54 - DUP 48"))
+    val result = println(solution("54 - 45 54 15 - DUP 48"))
   }
 }
 
@@ -49,7 +49,8 @@ class Solution {
     if (stack.size < 1) {
       throw new IllegalStateException("Exception thrown")
     }else {
-      stack.dropRight(1)
+      stack = stack.dropRight(1)
+      stack
     }
   }
 
