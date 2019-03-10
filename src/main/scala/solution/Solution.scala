@@ -35,7 +35,6 @@ class Solution {
     value match {
       case "POP" => remove()
       case "DUP" => duplicate()
-
       case "+" => sum()
       case "-" => subs()
       case _ => addToStack(value.toInt)
