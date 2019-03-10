@@ -5,36 +5,37 @@ import scala.collection.mutable.ListBuffer
 object Solution extends Solution {
 
   def main(args: Array[String]): Unit = {
-    val result = println(solution("1452 34 545 - DUP"))
+    val result: Unit = println(solution("234 34 545 - DUP"))
   }
 }
 
 class Solution {
 
   //Stack where operations generates results
-  var stack = ListBuffer[Int]()
+  var stack: ListBuffer[Int] = ListBuffer[Int]()
 
   def solution(s: String): Int = {
     // Splitting string into List to have a list of operations
     val operations = s.split(" ").toList
     try {
-      operations.foreach{calculateResult(_)}
+      operations.foreach{calculateResult}
     } catch {
-      case e => return -1
+      case e: Throwable => return -1
     }
-    return getLastElement
+    getLastElement
   }
 
   /**
     * Method for operation result calculation
     *
-    * @param value
+    * @param value some value
     * @return
     */
   def calculateResult(value: String): ListBuffer[Int] = {
     value match {
       case "POP" => remove()
       case "DUP" => duplicate()
+
       case "+" => sum()
       case "-" => subs()
       case _ => addToStack(value.toInt)
@@ -43,11 +44,11 @@ class Solution {
 
   /**
     * Adds value to stack
-    * @param value
+    * @param value some value
     */
   def addToStack(value: Int): ListBuffer[Int] = {
     if (value > Math.pow(2, 20) - 1) {
-      throw new IllegalStateException("Overflow")
+      throw new IllegalStateException("Stack overflow")
     }
     stack += value.toInt
   }
@@ -56,7 +57,7 @@ class Solution {
     * Remove last element
     * @return
     */
-  def remove() = {
+  def remove(): ListBuffer[Int] = {
     if (stack.size < 1) {
       throw new IllegalStateException("Stack empty exception")
     }
@@ -68,7 +69,7 @@ class Solution {
     * Duplicate last element
     * @return
     */
-  def duplicate() = {
+  def duplicate(): ListBuffer[Int] = {
     val lastest = getLastElement
     stack += lastest
   }
@@ -77,7 +78,7 @@ class Solution {
     * Sums lasts two elements
     * @return
     */
-  def sum() = {
+  def sum(): ListBuffer[Int] = {
     val lastest = getLastElement
     remove()
     val laster = getLastElement
@@ -89,7 +90,7 @@ class Solution {
     * Subtract lasts two elements
     * @return
     */
-  def subs() = {
+  def subs(): ListBuffer[Int] = {
     val lastest = getLastElement
     remove()
     val laster = getLastElement
